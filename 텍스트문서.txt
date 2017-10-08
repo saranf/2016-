@@ -1,0 +1,170 @@
+
+표준 데이터베이스 질의 언어인 SQL을 사용하는 관계형 데이터베이스 관리 시스템.
+
+매우 빠르고, 유연하며, 사용하기 쉬운 특징을 가짐.
+
+C/C++, 자바, 파이썬, 루비 PHP등의 프로그래밍 언어를 지원.
+
+오픈 소스로 개발되는 무료 프로그램이며, 홈 페이지나 쇼핑몰 등 일반적인 웹 개발에 널리 이용되고 있다. 
+
+***mysql 설치***
+
+mysql 설치 : sudo apt-get install mysql-server
+
+# sudo apt-get update 필수!
+
+
+[mysql 설치 1 사진 추가]
+
+
+[mysql 설치 2 사진 추가] // mysql root계정의 비밀번호 설정
+
+
+[mysql 실행]
+
+mysql -u [계정명] -p
+[비밀번호]
+#비밀번호가 없을경우 -p 생략가능
+
+
+[mysql 실행완료]
+
+
+
+
+
+***mysql 기본동작***
+
+
+[mysql 구성에 관한 사진 첨부] // mysql 기본구성
+
+database안에 table들이 있다.
+한 테이블은 field와 record로 구성된다.
+field : 데이터항목
+record : 값
+
+
+[create database] 
+
+db생성 : create database [db명];
+db표시 : show databases;
+
+
+
+[drop database]
+
+db삭제 : create database [db명];
+
+
+[create table]
+
+table생성 : create table [테이블명] ( [필드] [자료형] ... );
+테이블 구조확인 : desc [테이블명];
+
+#자료형 정리
+?char : 고정 문자열
+?varchar : 가변 문자열
+?int, smallint : 정수
+?float, double : 실수
+?date : 날짜
+?time : 시간
+?datetime : 날짜 + 시간
+
+
+[show]
+테이블표시 : show [table명];
+
+
+[insert]
+레코드 삽입 : insert into [table명] values ( [값1],[값2]... );
+테이블 출력 : select [범위] from [테이블명] (?) //범위에는 필드명이 들어가며 *은 전체를 의미.
+
+[select]
+select뒤의 ()에는 검색기능이 존재함.
+
+
+[select2] 
+
+like 구문은 말 그대로 ???와 같은 레코드를 출력하라는 의미. 
+ex) "김%" -> 김으로 시작하는것 출력
+
+between 구문은 x부터 y까지 사이값을 찾아서 출력.
+
+
+[select3]
+asc는 오름차순 정렬
+desc는 내림차순 정렬
+
+
+
+
+[insert2]
+레코드 삽입 다른방법 : insert into [table명] ( [필드명1]... ) values ( [값1],[값2]... );
+
+
+[update]
+레코드 변경 : update [table명] set [변경값] where [변경대상];
+
+
+[delete]
+레코드 삭제 : delete from [table명] where [삭제대상];
+
+
+[alter_add]
+필드 추가 : alter table [table명] add [필드][자료형];
+
+
+[alter_drop]
+필드 삭제 : alter table [table명] drop [필드];
+
+
+[alter_change]
+필드 변경 : alter table [table명] change [기존필드] [새필드] [새자료형];
+
+
+[alter_modify]
+자료형 변경 : alter table [table명] modify [필드] [새자료형];
+[계정생성 및 권한부여]
+
+
+[alter_rename]
+테이블명 변경 : alter table [table명] rename [새 table명];
+
+
+
+
+
+
+***필드의 속성.***
+
+필드생성/변경시에 속성을 집어넣을 수 있음.
+[not null]
+not null : null값 차단.
+
+[primary key]
+primary key : 다른 값들과 구별되는 유일값.
+#참고 : alter table [table명] add primary key([],[],[]..); 으로도가능.
+#alter table [table명] drop primary key;
+
+
+
+***계정생성 및 권한부여***
+[계정생성 및 권한부여]
+권한부여 : grant [권한] on [db].[table] to [대상] (identified by [비밀번호]);
+권한에는 select, create 등을 포함하며
+all privileges는 모든 권한을 의미한다.
+
+flush privileges : 새로고침
+
+[생성된 계정으로 들어감] // 접근못함을 확인할 수 있음.
+
+[비번변경]
+비번변경: update user set password=password([값]) where user='[대상]';
+
+참고 :
+권한삭제 : revoke [권한] on [db].[table] from [대상];
+
+사용자삭제 : drop user [대상]; 
+// use mysql 하고 있어야함. 마찬가지로 select * from user도 가능.
+
+mysql 설정파일 수정 : sudo vi /etc/mysql/my.cnf
